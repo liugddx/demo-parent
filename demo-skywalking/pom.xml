@@ -19,6 +19,7 @@
 	<modules>
 		<module>demo-skywalking-client</module>
 		<module>demo-skywalking-server</module>
+		<module>demo-skywalking-common</module>
 	</modules>
 
 	<dependencies>
