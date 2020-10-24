@@ -5,6 +5,7 @@
 	<groupId>com.liugddx</groupId>
 	<artifactId>demo-parent</artifactId>
 	<version>${revision}</version>
+	<packaging>pom</packaging>
 	<name>demo-parent</name>
 	<description>all Demo for study</description>
 
@@ -12,6 +13,8 @@
 		<java.version>1.8</java.version>
 		<spring-boot.version>2.1.17.RELEASE</spring-boot.version>
 		<revision>0.0.1-SNAPSHOT</revision>
+		<dubbo.version>2.7.8</dubbo.version>
+		<skipTests>true</skipTests>
 	</properties>
 
 	<modules>
@@ -23,7 +26,7 @@
 		<dependencies>
 			<dependency>
 				<groupId>com.liugddx</groupId>
-				<artifactId>bom-bom</artifactId>
+				<artifactId>demo-bom</artifactId>
 				<version>${revision}</version>
 				<type>pom</type>
 				<scope>import</scope>

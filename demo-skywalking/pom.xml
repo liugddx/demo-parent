@@ -12,7 +12,7 @@
 	<artifactId>demo-skywalking</artifactId>
 	<packaging>pom</packaging>
 
-	
+
 	<name>demo-skywalking</name>
 	<description>all Demo for study</description>
 
@@ -20,4 +20,16 @@
 		<module>demo-skywalking-client</module>
 		<module>demo-skywalking-server</module>
 	</modules>
+
+	<dependencies>
+		<dependency>
+			<groupId>org.apache.dubbo</groupId>
+			<artifactId>dubbo</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.dubbo</groupId>
+			<artifactId>dubbo-dependencies-zookeeper</artifactId>
+			<type>pom</type>
+		</dependency>
+	</dependencies>
 </project>
