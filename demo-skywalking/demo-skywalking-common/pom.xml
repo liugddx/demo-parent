@@ -12,6 +12,12 @@
 	<artifactId>demo-skywalking-common</artifactId>
 	<packaging>jar</packaging>
 
+	<dependencies>
+		<dependency>
+			<groupId>net.logstash.logback</groupId>
+			<artifactId>logstash-logback-encoder</artifactId>
+		</dependency>
+	</dependencies>
 	
 	<name>demo-skywalking-common</name>
 	<description>all Demo for study</description>
