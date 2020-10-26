@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration>
+<configuration>
+  <include resource="org/springframework/boot/logging/logback/defaults.xml"/>
+  <include resource="org/springframework/boot/logging/logback/console-appender.xml"/>
+  <property name="LOG_FILE_PATH" value="logs"/>
+  <timestamp key="DATETIME" datePattern="yyyy-MM-dd HH:mm:ss" />
+  <!-- 控制台打印 -->
+  <appender name="STDOUT" class="ch.qos.logback.core.ConsoleAppender">
+    <encoder charset="utf-8">
+      <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS}~$~%X{traceId}~$~%X{spanId}~$~%thread~$~%-5level~$~%logger{85}~$~%file:%line~$~%msg%n~$~
+      </pattern>
+    </encoder>
+  </appender>
+  <!--每天记录日志到文件appender-->
+  <appender name="FILE" class="ch.qos.logback.core.rolling.RollingFileAppender">
+    <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+      <fileNamePattern>${LOG_FILE_PATH}/%d{yyyy-MM-dd}.log</fileNamePattern>
+      <maxHistory>30</maxHistory>
+    </rollingPolicy>
+    <encoder>
+      <pattern>%d{yyyy-MM-dd HH:mm:ss.SSS}~$~%X{traceId}~$~%X{spanId}~$~%thread~$~%-5level~$~%logger{85}~$~%file:%line~$~%msg%n~$~</pattern>
+    </encoder>
+  </appender>
+
+  <!--开启tcp格式的logstash传输，通过TCP协议连接Logstash-->
+  <appender name="STASH" class="net.logstash.logback.appender.LogstashTcpSocketAppender">
+    <destination>127.0.0.1:9600</destination>
+
+    <encoder class="net.logstash.logback.encoder.LoggingEventCompositeJsonEncoder">
+      <jsonFactoryDecorator class="net.logstash.logback.decorate.CharacterEscapesJsonFactoryDecorator">
+        <escape>
+          <targetCharacterCode>10</targetCharacterCode>
+          <escapeSequence>\u2028</escapeSequence>
+        </escape>
+      </jsonFactoryDecorator>
+      <providers>
+        <pattern>
+          <pattern>
+            {
+            "timestamp":"%date{ISO8601}",
+            "traceId":"%X{traceId}",
+            "spanId":"%X{spanId}",
+            "level":"%-5level",
+            "message":"%msg%n"
+            }
+          </pattern>
+        </pattern>
+      </providers>
+    </encoder>
+    <keepAliveDuration>5 minutes</keepAliveDuration>
+  </appender>
+
+
+  <!-- Logger 根目录 -->
+  <root level="INFO">
+    <appender-ref ref="STDOUT" />
+<!--
+    <appender-ref ref="FILE" />
+-->
+  </root>
+
+</configuration>
