@@ -34,7 +34,7 @@ public class ElasticController {
     @RequestMapping("/save")
     @ResponseBody
     public void Save(){
-        BookBean book=new BookBean("1","ES入门教程","程裕强","2018-10-01");
+        BookBean book=new BookBean("1","ES入门教程","liugddx","2020-10-27");
         System.out.println(book);
         bookService.save(book);
     }
